@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Constructor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --futur-dusk: #6B73D9;
+            --futur-dusk-light: #8B7ED8;
+            --coral: #FF7F7F;
+            --apricot: #FFB366;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --medium-gray: #E5E7EB;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --shadow-light: rgba(0, 0, 0, 0.04);
+            --shadow-medium: rgba(0, 0, 0, 0.08);
+            --shadow-accent: rgba(107, 115, 217, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--futur-dusk) 0%, var(--futur-dusk-light) 100%);
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px var(--shadow-accent);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .title {
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(107, 115, 217, 0.1);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 32px var(--shadow-medium);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, var(--futur-dusk) 0%, var(--futur-dusk-light) 100%);
+            padding: 16px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .section-header:hover {
+            background: linear-gradient(135deg, var(--futur-dusk-light) 0%, var(--futur-dusk) 100%);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-toggle {
+            color: white;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .section-content {
+            padding: 24px;
+            display: none;
+        }
+
+        .section.active .section-content {
+            display: block;
+        }
+
+        .section.active .section-toggle {
+            transform: rotate(180deg);
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: white;
+            border: 2px solid var(--medium-gray);
+            border-radius: 12px;
+            padding: 14px 20px;
+            font-weight: 500;
+            color: var(--futur-dusk);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px var(--shadow-light);
+            font-family: inherit;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: var(--apricot);
+            border-color: var(--apricot);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 179, 102, 0.25);
+        }
+
+        .btn-primary {
+            background: var(--coral);
+            border-color: var(--coral);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #ff6b6b;
+            border-color: #ff6b6b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 127, 127, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--futur-dusk);
+            border-color: var(--futur-dusk);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: var(--futur-dusk-light);
+            border-color: var(--futur-dusk-light);
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--futur-dusk);
+            box-shadow: 0 0 0 3px rgba(107, 115, 217, 0.1);
+        }
+
+        .search-mode {
+            padding: 12px 16px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-mode:focus {
+            outline: none;
+            border-color: var(--futur-dusk);
+        }
+
+        .sort-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .sort-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 8px;
+            background: white;
+            color: var(--futur-dusk);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .sort-btn:hover {
+            background: var(--futur-dusk);
+            color: white;
+        }
+
+        .sort-btn.active {
+            background: var(--futur-dusk);
+            color: white;
+        }
+
+        .notes-container {
+            margin-top: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .note-item {
+            background: var(--light-gray);
+            border: 2px solid var(--medium-gray);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .note-item:hover {
+            background: #f1f5f9;
+            transform: translateX(4px);
+        }
+
+        .note-content {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .note-label {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            color: white;
+            min-width: 80px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .note-label:hover {
+            transform: scale(1.05);
+        }
+
+        .note-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .note-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .edit-btn {
+            background: var(--futur-dusk);
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: var(--futur-dusk-light);
+        }
+
+        .delete-btn {
+            background: var(--coral);
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #ff6b6b;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--futur-dusk);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--light-gray);
+            color: var(--text-primary);
+        }
+
+        .label-item {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .label-item:hover {
+            background: #f1f5f9;
+            transform: translateX(4px);
+        }
+
+        .label-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .label-name {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .delete-label {
+            background: var(--coral);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .delete-label:hover {
+            background: #ff6b6b;
+            transform: scale(1.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--futur-dusk);
+            box-shadow: 0 0 0 3px rgba(107, 115, 217, 0.1);
+        }
+
+        .form-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px 16px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--futur-dusk);
+            box-shadow: 0 0 0 3px rgba(107, 115, 217, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--futur-dusk);
+            box-shadow: 0 0 0 3px rgba(107, 115, 217, 0.1);
+        }
+
+        .color-input {
+            width: 60px;
+            height: 40px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .color-input:hover {
+            transform: scale(1.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 2px solid var(--light-gray);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--futur-dusk) 0%, var(--futur-dusk-light) 100%);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 16px var(--shadow-accent);
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            display: inline-block;
+            background: white;
+            border: 2px solid var(--medium-gray);
+            border-radius: 12px;
+            padding: 14px 20px;
+            font-weight: 500;
+            color: var(--futur-dusk);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px var(--shadow-light);
+        }
+
+        .file-label:hover {
+            background: var(--apricot);
+            border-color: var(--apricot);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .bottom-anchor {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--futur-dusk);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px var(--shadow-accent);
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+
+        .bottom-anchor:hover {
+            background: var(--futur-dusk-light);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(107, 115, 217, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 32px;
+            text-align: center;
+            box-shadow: 0 8px 32px var(--shadow-medium);
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .copyright a {
+            color: var(--futur-dusk);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .copyright a:hover {
+            color: var(--futur-dusk-light);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to { 
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            
+            .btn {
+                padding: 12px 16px;
+                font-size: 13px;
+            }
+            
+            .modal-content {
+                padding: 24px;
+                width: 95%;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+
+            .note-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .note-actions {
+                align-self: flex-end;
+            }
+
+            .search-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .sort-controls {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .footer {
+                margin-top: 24px;
+                padding: 16px;
+            }
+            
+            .copyright {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header" id="top">
+            <h1 class="title">List Constructor</h1>
+            <p class="subtitle">Votre gestionnaire de listes</p>
+        </div>
+
+        <div class="section" id="config">
+            <div class="section-header" onclick="toggleSection('config')">
+                <h2 class="section-title">⚙️ Configuration</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="button-grid">
+                    <button class="btn btn-secondary" onclick="openLabelManager()">Gérer labels</button>
+                    <button class="btn" onclick="exportConfig()">Exporter config .js</button>
+                    <label for="importConfig" class="file-label">Importer config .js</label>
+                    <input type="file" id="importConfig" class="file-input" accept=".js" onchange="importConfig(event)">
+                    <button class="btn btn-primary" onclick="resetAll()">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section active" id="notes">
+            <div class="section-header" onclick="toggleSection('notes')">
+                <h2 class="section-title">📝 Gestion des notes</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="button-grid">
+                    <button class="btn" onclick="openNoteModal()">Nouvelle note</button>
+                    <button class="btn" onclick="pasteText()">Coller texte en notes</button>
+                    <button class="btn" onclick="removeDuplicates()">Suppression doublon</button>
+                    <button class="btn" onclick="removeEmptyNotes()">Supprimer notes vides</button>
+                    <button class="btn" onclick="addPrefix()">Ajouter préfixe</button>
+                    <button class="btn" onclick="addSuffix()">Ajouter suffixe</button>
+                    <button class="btn" onclick="replaceText()">Remplacer texte</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="sort">
+            <div class="section-header" onclick="toggleSection('sort')">
+                <h2 class="section-title">🔄 Tri et organisation</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="sort-controls">
+                    <button class="sort-btn" onclick="sortAlphabetically('asc')">A→Z</button>
+                    <button class="sort-btn" onclick="sortAlphabetically('desc')">Z→A</button>
+                    <button class="sort-btn" onclick="sortByLabel('asc')">Label A→Z</button>
+                    <button class="sort-btn" onclick="sortByLabel('desc')">Label Z→A</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="import">
+            <div class="section-header" onclick="toggleSection('import')">
+                <h2 class="section-title">📤 Import/Export</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="button-grid">
+                    <button class="btn btn-primary" onclick="exportList()">Exporter la liste</button>
+                    <button class="btn" onclick="exportByLabel()">Exporter par label</button>
+                    <label for="importList" class="file-label">Importer liste (.txt/.csv)</label>
+                    <input type="file" id="importList" class="file-input" accept=".txt,.csv" onchange="importList(event)">
+                </div>
+            </div>
+        </div>
+
+        <div class="section active" id="content">
+            <div class="section-header" onclick="toggleSection('content')">
+                <h2 class="section-title">📋 Contenu de la liste</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="noteCount">0</div>
+                        <div class="stat-label">Notes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="labelCount">0</div>
+                        <div class="stat-label">Labels</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="wordCount">0</div>
+                        <div class="stat-label">Mots</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="filteredCount">0</div>
+                        <div class="stat-label">Affichées</div>
+                    </div>
+                </div>
+                
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Rechercher dans les notes..." onkeyup="filterNotes()">
+                    <select id="searchMode" class="search-mode" onchange="filterNotes()">
+                        <option value="contains">Contient</option>
+                        <option value="starts">Commence par</option>
+                    </select>
+                </div>
+                
+                <div class="notes-container" id="notesContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p class="copyright">
+            © 2025 List Constructor - Créé avec ❤️ par Philippe Joye (Orion4D) <a href="https://github.com/orion4d/">Github</a></p>
+        </p>
+    </div>
+
+    <button class="bottom-anchor" onclick="scrollToTop()" title="Retour en haut">↑</button>
+
+    <!-- Modal pour la gestion des labels -->
+    <div id="labelModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Gérer les labels</h3>
+                <button class="close-btn" onclick="closeLabelManager()">&times;</button>
+            </div>
+            
+            <div id="labelsList"></div>
+            
+            <div class="form-group">
+                <label class="form-label">Nom du nouveau label</label>
+                <input type="text" id="newLabelName" class="form-input" placeholder="Entrez le nom du label">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Couleur</label>
+                <input type="color" id="newLabelColor" class="color-input" value="#6B73D9">
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn" onclick="addLabel()">Ajouter un label</button>
+                <button class="btn btn-primary" onclick="saveLabels()">Enregistrer</button>
+                <button class="btn btn-secondary" onclick="closeLabelManager()">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour ajouter/éditer une note -->
+    <div id="noteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="noteModalTitle">Nouvelle note</h3>
+                <button class="close-btn" onclick="closeNoteModal()">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Contenu de la note</label>
+                <textarea id="noteContent" class="form-textarea" placeholder="Entrez le contenu de votre note..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Label</label>
+                <select id="noteLabel" class="form-select">
+                    <option value="">Aucun label</option>
+                </select>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="saveNote()">Enregistrer</button>
+                <button class="btn btn-secondary" onclick="closeNoteModal()">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour changer le label d'une note -->
+    <div id="labelChangeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Changer le label</h3>
+                <button class="close-btn" onclick="closeLabelChangeModal()">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Nouveau label</label>
+                <select id="changeLabelSelect" class="form-select">
+                    <option value="">Aucun label</option>
+                </select>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="saveNewLabel()">Changer</button>
+                <button class="btn btn-secondary" onclick="closeLabelChangeModal()">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let notes = [];
+        let labels = [
+            { name: 'Important', color: '#FF7F7F' },
+            { name: 'À faire', color: '#6B73D9' },
+            { name: 'Idée', color: '#FFB366' }
+        ];
+        let currentNoteIndex = -1;
+        let filteredNotes = [];
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFromStorage();
+            updateDisplay();
+            updateStats();
+            updateLabelSelect();
+            filterNotes();
+        });
+
+        // Fonctions de navigation
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.classList.toggle('active');
+        }
+
+        function scrollToTop() {
+            document.getElementById('top').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Fonctions de recherche améliorées
+        function filterNotes() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const searchMode = document.getElementById('searchMode').value;
+            
+            if (searchTerm === '') {
+                filteredNotes = [...notes];
+            } else {
+                filteredNotes = notes.filter(note => {
+                    const content = note.content.toLowerCase();
+                    
+                    if (searchMode === 'starts') {
+                        return content.startsWith(searchTerm);
+                    } else {
+                        return content.includes(searchTerm);
+                    }
+                });
+            }
+            
+            updateDisplay();
+            updateStats();
+        }
+
+        // Fonctions de tri améliorées
+        function sortAlphabetically(direction = 'asc') {
+            notes.sort((a, b) => {
+                const comparison = a.content.localeCompare(b.content);
+                return direction === 'asc' ? comparison : -comparison;
+            });
+            
+            // Mise à jour visuelle du bouton actif
+            updateSortButtons(`alpha-${direction}`);
+            filterNotes();
+            saveToStorage();
+        }
+
+        function sortByLabel(direction = 'asc') {
+            notes.sort((a, b) => {
+                const labelA = a.labelName || 'zzz';
+                const labelB = b.labelName || 'zzz';
+                const comparison = labelA.localeCompare(labelB);
+                return direction === 'asc' ? comparison : -comparison;
+            });
+            
+            // Mise à jour visuelle du bouton actif
+            updateSortButtons(`label-${direction}`);
+            filterNotes();
+            saveToStorage();
+        }
+
+        function updateSortButtons(activeSort) {
+            const buttons = document.querySelectorAll('.sort-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Ajouter la classe active au bon bouton
+            const buttonMap = {
+                'alpha-asc': 0,
+                'alpha-desc': 1,
+                'label-asc': 2,
+                'label-desc': 3
+            };
+            
+            if (buttonMap[activeSort] !== undefined) {
+                buttons[buttonMap[activeSort]].classList.add('active');
+            }
+        }
+
+        // Fonctions de gestion des notes
+        function openNoteModal(index = -1) {
+            currentNoteIndex = index;
+            const modal = document.getElementById('noteModal');
+            const title = document.getElementById('noteModalTitle');
+            const content = document.getElementById('noteContent');
+            const labelSelect = document.getElementById('noteLabel');
+            
+            if (index >= 0) {
+                title.textContent = 'Éditer la note';
+                content.value = notes[index].content;
+                labelSelect.value = notes[index].labelName || '';
+            } else {
+                title.textContent = 'Nouvelle note';
+                content.value = '';
+                labelSelect.value = '';
+            }
+            
+            modal.style.display = 'block';
+            content.focus();
+        }
+
+        function closeNoteModal() {
+            document.getElementById('noteModal').style.display = 'none';
+            currentNoteIndex = -1;
+        }
+
+        function saveNote() {
+            const content = document.getElementById('noteContent').value.trim();
+            const labelName = document.getElementById('noteLabel').value;
+            
+            if (!content) {
+                alert('Veuillez entrer un contenu pour la note');
+                return;
+            }
+            
+            const note = {
+                content: content,
+                labelName: labelName,
+                id: currentNoteIndex >= 0 ? notes[currentNoteIndex].id : Date.now()
+            };
+            
+            if (currentNoteIndex >= 0) {
+                notes[currentNoteIndex] = note;
+            } else {
+                notes.push(note);
+            }
+            
+            filterNotes();
+            updateStats();
+            saveToStorage();
+            closeNoteModal();
+        }
+
+        function deleteNote(index) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette note ?')) {
+                notes.splice(index, 1);
+                filterNotes();
+                updateStats();
+                saveToStorage();
+            }
+        }
+
+        function openLabelChangeModal(noteIndex) {
+            currentNoteIndex = noteIndex;
+            const modal = document.getElementById('labelChangeModal');
+            const select = document.getElementById('changeLabelSelect');
+            
+            // Remplir le select avec les labels disponibles
+            select.innerHTML = '<option value="">Aucun label</option>';
+            labels.forEach(label => {
+                const option = document.createElement('option');
+                option.value = label.name;
+                option.textContent = label.name;
+                if (notes[noteIndex].labelName === label.name) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+            
+            modal.style.display = 'block';
+        }
+
+        function closeLabelChangeModal() {
+            document.getElementById('labelChangeModal').style.display = 'none';
+            currentNoteIndex = -1;
+        }
+
+        function saveNewLabel() {
+            const newLabelName = document.getElementById('changeLabelSelect').value;
+            notes[currentNoteIndex].labelName = newLabelName;
+            
+            filterNotes();
+            saveToStorage();
+            closeLabelChangeModal();
+        }
+
+        function pasteText() {
+            navigator.clipboard.readText().then(text => {
+                if (text.trim()) {
+                    // Sécuriser le texte pour éviter l'exécution de code
+                    const secureText = text.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+                    
+                    // Diviser par lignes et créer une note pour chaque ligne non vide
+                    const lines = secureText.split('\n').filter(line => line.trim() !== '');
+                    
+                    lines.forEach(line => {
+                        const note = {
+                            content: line.trim(),
+                            labelName: '',
+                            id: Date.now() + Math.random()
+                        };
+                        notes.push(note);
+                    });
+                    
+                    filterNotes();
+                    updateStats();
+                    saveToStorage();
+                    alert(`${lines.length} notes ajoutées`);
+                }
+            }).catch(err => {
+                const text = prompt('Collez votre texte ici:');
+                if (text && text.trim()) {
+                    // Sécuriser le texte
+                    const secureText = text.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+                    
+                    // Diviser par lignes
+                    const lines = secureText.split('\n').filter(line => line.trim() !== '');
+                    
+                    lines.forEach(line => {
+                        const note = {
+                            content: line.trim(),
+                            labelName: '',
+                            id: Date.now() + Math.random()
+                        };
+                        notes.push(note);
+                    });
+                    
+                    filterNotes();
+                    updateStats();
+                    saveToStorage();
+                    alert(`${lines.length} notes ajoutées`);
+                }
+            });
+        }
+
+        // Fonctions de gestion des labels
+        function openLabelManager() {
+            document.getElementById('labelModal').style.display = 'block';
+            displayLabels();
+        }
+
+        function closeLabelManager() {
+            document.getElementById('labelModal').style.display = 'none';
+        }
+
+        function displayLabels() {
+            const labelsList = document.getElementById('labelsList');
+            labelsList.innerHTML = '';
+            
+            labels.forEach((label, index) => {
+                const labelItem = document.createElement('div');
+                labelItem.className = 'label-item';
+                labelItem.innerHTML = `
+                    <div class="label-color" style="background-color: ${label.color}"></div>
+                    <span class="label-name">${label.name}</span>
+                    <button class="delete-label" onclick="deleteLabel(${index})">Supprimer</button>
+                `;
+                labelsList.appendChild(labelItem);
+            });
+        }
+
+        function addLabel() {
+            const name = document.getElementById('newLabelName').value.trim();
+            const color = document.getElementById('newLabelColor').value;
+            
+            if (name) {
+                labels.push({ name, color });
+                document.getElementById('newLabelName').value = '';
+                displayLabels();
+                updateStats();
+                updateLabelSelect();
+            }
+        }
+
+        function deleteLabel(index) {
+            const labelName = labels[index].name;
+            
+            // Supprimer le label des notes qui l'utilisent
+            notes.forEach(note => {
+                if (note.labelName === labelName) {
+                    note.labelName = '';
+                }
+            });
+            
+            labels.splice(index, 1);
+            displayLabels();
+            updateStats();
+            updateLabelSelect();
+            filterNotes();
+        }
+
+        function saveLabels() {
+            saveToStorage();
+            closeLabelManager();
+            updateLabelSelect();
+        }
+
+        function updateLabelSelect() {
+            const selects = ['noteLabel', 'changeLabelSelect'];
+            
+            selects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                if (select) {
+                    select.innerHTML = '<option value="">Aucun label</option>';
+                    
+                    labels.forEach(label => {
+                        const option = document.createElement('option');
+                        option.value = label.name;
+                        option.textContent = label.name;
+                        select.appendChild(option);
+                    });
+                }
+            });
+        }
+
+        // Fonctions d'affichage
+        function updateDisplay() {
+            const container = document.getElementById('notesContainer');
+            container.innerHTML = '';
+            
+            filteredNotes.forEach((note, index) => {
+                const originalIndex = notes.findIndex(n => n.id === note.id);
+                const noteDiv = document.createElement('div');
+                noteDiv.className = 'note-item';
+                
+                const label = labels.find(l => l.name === note.labelName);
+                const labelHtml = label ? 
+                    `<span class="note-label" style="background-color: ${label.color}" onclick="openLabelChangeModal(${originalIndex})" title="Cliquer pour changer le label">${label.name}</span>` : 
+                    `<span class="note-label" style="background-color: #ccc" onclick="openLabelChangeModal(${originalIndex})" title="Cliquer pour ajouter un label">Sans label</span>`;
+                
+                noteDiv.innerHTML = `
+                    <div class="note-content">${escapeHtml(note.content)}</div>
+                    ${labelHtml}
+                    <div class="note-actions">
+                        <button class="note-btn edit-btn" onclick="openNoteModal(${originalIndex})">Éditer</button>
+                        <button class="note-btn delete-btn" onclick="deleteNote(${originalIndex})">Supprimer</button>
+                    </div>
+                `;
+                
+                container.appendChild(noteDiv);
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Fonctions utilitaires existantes
+        function removeDuplicates() {
+            const originalLength = notes.length;
+            const seen = new Set();
+            notes = notes.filter(note => {
+                const key = note.content + (note.labelName || '');
+                if (seen.has(key)) {
+                    return false;
+                }
+                seen.add(key);
+                return true;
+            });
+            const removed = originalLength - notes.length;
+            alert(`${removed} doublons supprimés`);
+            filterNotes();
+            updateStats();
+            saveToStorage();
+        }
+
+        function removeEmptyNotes() {
+            const originalLength = notes.length;
+            notes = notes.filter(note => note.content.trim() !== '');
+            const removed = originalLength - notes.length;
+            alert(`${removed} notes vides supprimées`);
+            filterNotes();
+            updateStats();
+            saveToStorage();
+        }
+
+        function addPrefix() {
+            const prefix = prompt('Entrez le préfixe à ajouter:');
+            if (prefix !== null) {
+                notes = notes.map(note => ({
+                    ...note,
+                    content: prefix + note.content
+                }));
+                filterNotes();
+                saveToStorage();
+            }
+        }
+
+        function addSuffix() {
+            const suffix = prompt('Entrez le suffixe à ajouter:');
+            if (suffix !== null) {
+                notes = notes.map(note => ({
+                    ...note,
+                    content: note.content + suffix
+                }));
+                filterNotes();
+                saveToStorage();
+            }
+        }
+
+        function replaceText() {
+            const searchText = prompt('Texte à remplacer:');
+            if (searchText !== null) {
+                const replaceText = prompt('Remplacer par:') || '';
+                notes = notes.map(note => ({
+                    ...note,
+                    content: note.content.replace(new RegExp(escapeRegExp(searchText), 'g'), replaceText)
+                }));
+                filterNotes();
+                saveToStorage();
+            }
+        }
+
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function exportList() {
+            let content = '';
+            notes.forEach(note => {
+                const label = note.labelName ? `[${note.labelName}] ` : '';
+                content += label + note.content + '\n';
+            });
+            downloadFile('liste.txt', content);
+        }
+
+        function exportByLabel() {
+            let content = '';
+            
+            // Grouper par label
+            const groupedNotes = {};
+            notes.forEach(note => {
+                const labelName = note.labelName || 'Sans label';
+                if (!groupedNotes[labelName]) {
+                    groupedNotes[labelName] = [];
+                }
+                groupedNotes[labelName].push(note);
+            });
+            
+            // Exporter par groupe
+            Object.keys(groupedNotes).forEach(labelName => {
+                content += `=== ${labelName} ===\n`;
+                groupedNotes[labelName].forEach(note => {
+                    content += note.content + '\n';
+                });
+                content += '\n';
+            });
+            
+            downloadFile('liste_par_labels.txt', content);
+        }
+
+        function exportConfig() {
+            const config = {
+                notes: notes,
+                labels: labels
+            };
+            const content = 'const listConfig = ' + JSON.stringify(config, null, 2) + ';';
+            downloadFile('config.js', content);
+        }
+
+        function importConfig(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const content = e.target.result;
+                        const configMatch = content.match(/const listConfig = ({[\s\S]*});/);
+                        if (configMatch) {
+                            const config = JSON.parse(configMatch[1]);
+                            notes = config.notes || [];
+                            labels = config.labels || [];
+                            filterNotes();
+                            updateStats();
+                            updateLabelSelect();
+                            saveToStorage();
+                            alert('Configuration importée avec succès!');
+                        }
+                    } catch (error) {
+                        alert('Erreur lors de l\'importation du fichier');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        function importList(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    const lines = content.split('\n').filter(line => line.trim() !== '');
+                    
+                    lines.forEach(line => {
+                        // Détecter si la ligne a un label [Label] Contenu
+                        const labelMatch = line.match(/^\[([^\]]+)\]\s*(.*)$/);
+                        if (labelMatch) {
+                            const labelName = labelMatch[1];
+                            const content = labelMatch[2];
+                            notes.push({
+                                content: content,
+                                labelName: labelName,
+                                id: Date.now() + Math.random()
+                            });
+                        } else {
+                            notes.push({
+                                content: line,
+                                labelName: '',
+                                id: Date.now() + Math.random()
+                            });
+                        }
+                    });
+                    
+                    filterNotes();
+                    updateStats();
+                    saveToStorage();
+                    alert(`${lines.length} notes importées!`);
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        function downloadFile(filename, content) {
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function updateStats() {
+            document.getElementById('noteCount').textContent = notes.length;
+            document.getElementById('labelCount').textContent = labels.length;
+            document.getElementById('filteredCount').textContent = filteredNotes.length;
+            
+            const wordCount = notes.reduce((total, note) => {
+                return total + note.content.split(/\s+/).filter(word => word.length > 0).length;
+            }, 0);
+            document.getElementById('wordCount').textContent = wordCount;
+        }
+
+        function resetAll() {
+            if (confirm('Êtes-vous sûr de vouloir tout réinitialiser?')) {
+                notes = [];
+                labels = [
+                    { name: 'Important', color: '#FF7F7F' },
+                    { name: 'À faire', color: '#6B73D9' },
+                    { name: 'Idée', color: '#FFB366' }
+                ];
+                filterNotes();
+                updateStats();
+                updateLabelSelect();
+                saveToStorage();
+            }
+        }
+
+        function saveToStorage() {
+            localStorage.setItem('listConstructorData', JSON.stringify({
+                notes: notes,
+                labels: labels
+            }));
+        }
+
+        function loadFromStorage() {
+            const saved = localStorage.getItem('listConstructorData');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    notes = data.notes || [];
+                    labels = data.labels || [
+                        { name: 'Important', color: '#FF7F7F' },
+                        { name: 'À faire', color: '#6B73D9' },
+                        { name: 'Idée', color: '#FFB366' }
+                    ];
+                    
+                    // Migration des anciennes données si nécessaire
+                    notes = notes.map(note => {
+                        if (typeof note === 'string') {
+                            return {
+                                content: note,
+                                labelName: '',
+                                id: Date.now() + Math.random()
+                            };
+                        }
+                        return note;
+                    });
+                } catch (error) {
+                    console.error('Erreur lors du chargement des données:', error);
+                }
+            }
+        }
+
+        // Fermer les modales en cliquant à l'extérieur
+        window.addEventListener('click', function(event) {
+            const labelModal = document.getElementById('labelModal');
+            const noteModal = document.getElementById('noteModal');
+            const labelChangeModal = document.getElementById('labelChangeModal');
+            
+            if (event.target === labelModal) {
+                closeLabelManager();
+            }
+            if (event.target === noteModal) {
+                closeNoteModal();
+            }
+            if (event.target === labelChangeModal) {
+                closeLabelChangeModal();
+            }
+        });
+    </script>
+</body>
+</html>
