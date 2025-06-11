@@ -59,3 +59,17 @@ Consultez en temps réel le nombre de notes, labels, mots et notes affichées da
 ## Astuces
 -   Utilisez la fonction "**Reset**" pour réinitialiser l’application à son état d’origine.
 -   Filtrez vos notes par contenu ou par début de texte grâce aux champs de recherche.
+
+<div align="center">
+
+### 🌟 **Soutenez le projet**
+
+Si ce projet vous a été utile, pensez à lui laisser une ⭐ sur GitHub !
+
+**Fait avec ❤️ pour la communauté open source**  
+**par Orion4D**
+
+[![Offrez-moi un café](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/orion4d)
+
+</div>
+
