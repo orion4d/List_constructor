@@ -47,6 +47,7 @@ Aucune installation requise : ouvrez simplement le fichier `List_constructor-v2.
 -   **Ajouter un label :** Cliquez sur "**Gérer labels**", saisissez le nom et la couleur, puis "**Ajouter un label**".
 -   **Attribuer un label :** Lors de l’ajout ou l’édition d’une note, sélectionnez un label existant.
 -   **Changer le label d’une note :** Cliquez sur la note, puis choisissez "**Changer le label**".
+-   **Désormais, chaque label possède aussi une icône crayon**. En cliquant dessus, tu peux modifier directement son nom et sa couleur
 
 ### 5. Import/Export
 -   **Exporter la liste :** Cliquez sur "**Exporter la liste**" pour sauvegarder vos notes.
