@@ -679,6 +679,175 @@
             }
         }
     </style>
+
+<style id="orion-modern-tech-theme">
+:root {
+  --tech-bg:#070b12; --tech-bg-2:#0b111c; --tech-panel:rgba(16,24,39,.82);
+  --tech-panel-2:rgba(12,18,30,.94); --tech-border:rgba(112,156,255,.16);
+  --tech-border-strong:rgba(112,156,255,.34); --tech-text:#eaf1ff; --tech-muted:#8fa1bd;
+  --tech-cyan:#69e6ff; --tech-blue:#7188ff; --tech-violet:#9a7cff; --tech-pink:#ff6fae;
+  --tech-danger:#ff6480; --tech-success:#52e0a4; --tech-shadow:0 18px 50px rgba(0,0,0,.34);
+}
+html { color-scheme: dark; scroll-behavior:smooth; }
+body {
+  background:
+    radial-gradient(circle at 18% -10%, rgba(113,136,255,.20), transparent 34%),
+    radial-gradient(circle at 92% 12%, rgba(105,230,255,.10), transparent 30%),
+    linear-gradient(180deg,#070b12 0%,#090e18 48%,#070b12 100%);
+  color:var(--tech-text); overflow-x:hidden;
+}
+body::before {
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:-2; opacity:.34;
+  background-image:linear-gradient(rgba(113,136,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(113,136,255,.055) 1px,transparent 1px);
+  background-size:34px 34px; mask-image:linear-gradient(to bottom,rgba(0,0,0,.8),transparent 82%);
+}
+body::after {
+  content:""; position:fixed; width:540px; height:540px; border-radius:50%; left:var(--glow-x,65%); top:var(--glow-y,18%);
+  transform:translate(-50%,-50%); pointer-events:none; z-index:-1;
+  background:radial-gradient(circle,rgba(105,230,255,.09),rgba(113,136,255,.035) 36%,transparent 70%); filter:blur(14px);
+  transition:left .18s linear, top .18s linear;
+}
+.container { max-width:1180px; padding:28px 24px 10px; }
+.header {
+  position:relative; overflow:hidden; text-align:left; padding:30px 34px; margin-bottom:22px;
+  border-radius:22px; border:1px solid var(--tech-border-strong);
+  background:linear-gradient(135deg,rgba(20,31,52,.94),rgba(12,17,30,.90)); box-shadow:var(--tech-shadow);
+}
+.header::before { content:""; position:absolute; inset:0; background:linear-gradient(110deg,transparent 0 42%,rgba(105,230,255,.08) 49%,transparent 56%); transform:translateX(-70%); animation:headerScan 8s ease-in-out infinite; }
+.header::after { content:"LC"; position:absolute; right:26px; top:50%; transform:translateY(-50%); font-size:74px; line-height:1; font-weight:800; letter-spacing:-7px; color:rgba(255,255,255,.028); }
+@keyframes headerScan { 0%,68%,100%{transform:translateX(-80%)} 82%{transform:translateX(90%)} }
+.title { position:relative; color:#f7fbff; font-size:31px; margin-bottom:4px; letter-spacing:-1px; }
+.title::before { content:""; display:inline-block; width:9px; height:9px; margin-right:12px; border-radius:3px; background:var(--tech-cyan); box-shadow:0 0 18px rgba(105,230,255,.85); vertical-align:4px; }
+.subtitle { position:relative; color:var(--tech-muted); font-size:14px; letter-spacing:.06em; text-transform:uppercase; }
+.section { background:var(--tech-panel); backdrop-filter:blur(18px) saturate(135%); border:1px solid var(--tech-border); border-radius:16px; margin-bottom:13px; box-shadow:0 12px 34px rgba(0,0,0,.20); transition:border-color .25s ease, transform .25s ease, box-shadow .25s ease; }
+.section:hover { border-color:rgba(112,156,255,.28); box-shadow:0 16px 40px rgba(0,0,0,.27); }
+.section-header { background:linear-gradient(90deg,rgba(26,38,62,.94),rgba(14,22,37,.92)); padding:15px 18px; border-bottom:1px solid transparent; transition:.25s ease; }
+.section.active .section-header { border-bottom-color:rgba(112,156,255,.13); }
+.section-header:hover { background:linear-gradient(90deg,rgba(31,46,75,.98),rgba(16,25,42,.95)); }
+.section-title { color:var(--tech-text); font-size:15px; font-weight:650; letter-spacing:.01em; gap:10px; }
+.section-icon { width:32px; height:32px; border-radius:10px; display:grid; place-items:center; color:var(--tech-cyan); background:linear-gradient(145deg,rgba(105,230,255,.10),rgba(113,136,255,.10)); border:1px solid rgba(105,230,255,.14); box-shadow:inset 0 0 18px rgba(105,230,255,.025); }
+.section-icon svg { width:17px; height:17px; }
+.section-toggle { width:29px; height:29px; display:grid; place-items:center; border-radius:9px; font-size:0; color:var(--tech-muted); border:1px solid rgba(255,255,255,.06); background:rgba(255,255,255,.025); }
+.section-toggle::before { content:""; width:7px; height:7px; border-right:1.8px solid currentColor; border-bottom:1.8px solid currentColor; transform:rotate(45deg) translate(-1px,-1px); }
+.section.active .section-toggle { transform:rotate(180deg); color:var(--tech-cyan); }
+.section-content { padding:19px; }
+.button-grid { grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin-bottom:2px; }
+.btn,.file-label,.sort-btn,.note-btn,.delete-label { position:relative; display:inline-flex; align-items:center; justify-content:center; gap:9px; overflow:hidden; font-family:inherit; letter-spacing:.01em; }
+.btn,.file-label { min-height:45px; padding:11px 15px; border:1px solid rgba(132,154,194,.18); border-radius:11px; color:#d9e5f8; background:linear-gradient(180deg,rgba(31,43,66,.78),rgba(19,28,45,.82)); box-shadow:inset 0 1px rgba(255,255,255,.035),0 7px 18px rgba(0,0,0,.14); }
+.btn::after,.file-label::after { content:""; position:absolute; inset:-1px; background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.11),transparent 80%); transform:translateX(-120%); transition:transform .55s ease; }
+.btn:hover::after,.file-label:hover::after { transform:translateX(120%); }
+.btn:hover,.file-label:hover { background:linear-gradient(180deg,rgba(38,56,86,.94),rgba(24,37,59,.96)); border-color:rgba(105,230,255,.36); color:white; transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.24),0 0 0 1px rgba(105,230,255,.06); }
+.btn-primary { background:linear-gradient(135deg,#786cff,#9b68ff); border-color:rgba(158,132,255,.65); color:white; }
+.btn-primary:hover { background:linear-gradient(135deg,#8578ff,#a676ff); border-color:rgba(175,154,255,.8); box-shadow:0 10px 26px rgba(123,104,255,.24); }
+.btn-secondary { background:linear-gradient(135deg,rgba(20,121,151,.72),rgba(50,91,170,.78)); border-color:rgba(105,230,255,.30); color:#eefcff; }
+.btn-secondary:hover { background:linear-gradient(135deg,rgba(24,142,174,.86),rgba(57,104,195,.9)); border-color:rgba(105,230,255,.52); }
+.ui-icon { width:16px; height:16px; flex:none; position:relative; z-index:1; }
+.btn > span,.file-label > span,.sort-btn > span,.note-btn > span,.delete-label > span { position:relative; z-index:1; }
+.stats { gap:10px; margin-bottom:16px; }
+.stat-card { position:relative; overflow:hidden; padding:15px; border-radius:12px; text-align:left; background:linear-gradient(145deg,rgba(22,33,54,.88),rgba(12,18,31,.94)); border:1px solid rgba(112,156,255,.16); box-shadow:none; }
+.stat-card::after { content:""; position:absolute; width:56px; height:56px; right:-17px; bottom:-22px; border-radius:50%; background:rgba(105,230,255,.055); box-shadow:0 0 28px rgba(105,230,255,.04); }
+.stat-number { color:#f6fbff; font-size:25px; margin-bottom:1px; }
+.stat-label { color:var(--tech-muted); text-transform:uppercase; letter-spacing:.08em; font-size:10px; }
+.search-container { padding:8px; border-radius:13px; background:rgba(7,12,21,.55); border:1px solid rgba(112,156,255,.12); gap:8px; }
+.search-input,.search-mode,.form-input,.form-textarea,.form-select { color:var(--tech-text); background:rgba(8,13,23,.84); border:1px solid rgba(132,154,194,.18); border-radius:10px; box-shadow:inset 0 1px 0 rgba(255,255,255,.025); }
+.search-input { padding:11px 13px 11px 39px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%238fa1bd' stroke-width='1.8'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-4-4'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:13px center; }
+.search-input::placeholder,.form-input::placeholder,.form-textarea::placeholder { color:#65758e; }
+.search-input:focus,.search-mode:focus,.form-input:focus,.form-textarea:focus,.form-select:focus { border-color:rgba(105,230,255,.55); box-shadow:0 0 0 3px rgba(105,230,255,.08),0 0 18px rgba(105,230,255,.04); }
+.search-mode { color:#c9d7ec; }
+.sort-controls { gap:7px; margin-bottom:2px; flex-wrap:wrap; }
+.sort-btn { padding:8px 12px; border:1px solid rgba(132,154,194,.16); border-radius:9px; background:rgba(18,27,44,.7); color:#b9c8dd; }
+.sort-btn:hover,.sort-btn.active { background:rgba(105,230,255,.10); color:#ebfbff; border-color:rgba(105,230,255,.38); }
+.notes-container { max-height:620px; padding-right:5px; scrollbar-width:thin; scrollbar-color:#32405b transparent; }
+.note-item { background:linear-gradient(90deg,rgba(18,27,44,.82),rgba(12,19,32,.90)); border:1px solid rgba(132,154,194,.13); border-radius:12px; padding:13px 13px 13px 15px; gap:11px; }
+.note-item:hover { background:linear-gradient(90deg,rgba(23,35,56,.94),rgba(15,23,39,.96)); border-color:rgba(105,230,255,.24); transform:translateX(2px); }
+.note-content { color:#dbe6f7; }
+.note-label { border-radius:8px; min-width:78px; padding:5px 10px; box-shadow:inset 0 0 0 1px rgba(255,255,255,.10); }
+.note-label:hover { transform:translateY(-1px); filter:brightness(1.08); }
+.note-btn,.delete-label { width:34px; height:34px; padding:0; border-radius:9px; border:1px solid transparent; font-size:0; }
+.edit-btn { background:rgba(113,136,255,.13); color:#aebcff; border-color:rgba(113,136,255,.18); }
+.edit-btn:hover { background:rgba(113,136,255,.22); }
+.delete-btn,.delete-label { background:rgba(255,100,128,.11); color:#ff93a7; border-color:rgba(255,100,128,.18); }
+.delete-btn:hover,.delete-label:hover { background:rgba(255,100,128,.20); transform:none; }
+.modal { background:rgba(2,5,10,.76); backdrop-filter:blur(12px); }
+.modal-content { padding:25px; border-radius:18px; background:linear-gradient(180deg,rgba(18,27,44,.98),rgba(10,16,27,.99)); border:1px solid rgba(112,156,255,.24); box-shadow:0 30px 90px rgba(0,0,0,.58),0 0 0 1px rgba(255,255,255,.018); }
+.modal-header { margin-bottom:20px; padding-bottom:13px; border-bottom:1px solid rgba(132,154,194,.12); }
+.modal-title { color:#edf6ff; font-size:20px; }
+.close-btn { width:34px; height:34px; padding:0; display:grid; place-items:center; border:1px solid rgba(132,154,194,.12); background:rgba(255,255,255,.025); color:#9eacc0; }
+.close-btn:hover { background:rgba(255,100,128,.10); color:#ff93a7; }
+.form-label { color:#aebed5; font-size:12px; text-transform:uppercase; letter-spacing:.07em; }
+.form-group { margin-bottom:16px; }
+.modal-actions { border-top:1px solid rgba(132,154,194,.12); }
+.label-item { background:rgba(12,19,32,.76); border:1px solid rgba(132,154,194,.12); }
+.label-item:hover { background:rgba(19,29,48,.88); transform:translateX(2px); }
+.label-item.editing {
+  border-color:rgba(105,230,255,.34);
+  background:linear-gradient(90deg,rgba(18,31,49,.94),rgba(13,22,37,.96));
+  box-shadow:0 0 0 1px rgba(105,230,255,.04),0 0 24px rgba(105,230,255,.045);
+  transform:none;
+}
+.label-name-editor {
+  flex:1; min-width:0; height:38px; padding:8px 10px;
+  color:var(--tech-text); background:rgba(7,12,21,.88);
+  border:1px solid rgba(132,154,194,.22); border-radius:9px;
+  font:500 14px/1.2 inherit; outline:none;
+  transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.label-name-editor:focus {
+  border-color:rgba(105,230,255,.58);
+  background:rgba(8,15,25,.98);
+  box-shadow:0 0 0 3px rgba(105,230,255,.08);
+}
+.label-color-editor {
+  width:38px; height:38px; flex:none; padding:3px;
+  border:1px solid rgba(132,154,194,.22); border-radius:9px;
+  background:#0d1524; cursor:pointer;
+}
+.label-color-editor::-webkit-color-swatch-wrapper { padding:0; }
+.label-color-editor::-webkit-color-swatch { border:0; border-radius:5px; }
+.label-color-editor::-moz-color-swatch { border:0; border-radius:5px; }
+.label-edit-actions { display:flex; gap:7px; margin-left:auto; }
+.label-edit-action {
+  width:34px; height:34px; display:grid; place-items:center; padding:0;
+  border-radius:9px; cursor:pointer;
+  transition:background .2s ease,border-color .2s ease,color .2s ease,transform .2s ease;
+}
+.label-edit-action svg {
+  width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.9;
+  stroke-linecap:round; stroke-linejoin:round;
+}
+.label-edit-confirm {
+  color:#7af0bc; background:rgba(82,224,164,.11);
+  border:1px solid rgba(82,224,164,.20);
+}
+.label-edit-confirm:hover {
+  color:#a3ffd1; background:rgba(82,224,164,.20);
+  border-color:rgba(82,224,164,.36); transform:translateY(-1px);
+}
+.label-edit-cancel {
+  color:#ff93a7; background:rgba(255,100,128,.10);
+  border:1px solid rgba(255,100,128,.18);
+}
+.label-edit-cancel:hover {
+  color:#ffb0bf; background:rgba(255,100,128,.19);
+  border-color:rgba(255,100,128,.34); transform:translateY(-1px);
+}
+.label-color { border:2px solid rgba(255,255,255,.9); box-shadow:0 0 0 1px rgba(255,255,255,.12),0 0 15px currentColor; }
+.color-input { background:#0d1524; border:1px solid rgba(132,154,194,.20); padding:2px; }
+.bottom-anchor { width:46px; height:46px; right:22px; bottom:22px; border-radius:14px; font-size:0; background:linear-gradient(145deg,rgba(26,41,67,.95),rgba(13,23,39,.97)); border:1px solid rgba(105,230,255,.28); color:var(--tech-cyan); box-shadow:0 10px 28px rgba(0,0,0,.35),0 0 25px rgba(105,230,255,.05); }
+.bottom-anchor::before { content:""; width:9px; height:9px; border-left:2px solid currentColor; border-top:2px solid currentColor; transform:rotate(45deg) translate(2px,2px); display:block; margin:auto; }
+.bottom-anchor:hover { background:linear-gradient(145deg,rgba(31,55,87,.98),rgba(16,31,52,.98)); transform:translateY(-2px); }
+.footer { max-width:1132px; margin:24px auto 0; padding:17px; background:transparent; border:0; box-shadow:none; }
+.copyright { color:#63738a; font-size:12px; }
+.copyright a { color:#8fb5ff; }
+.app-status { display:flex; align-items:center; gap:7px; position:absolute; right:28px; bottom:18px; font-size:10px; text-transform:uppercase; letter-spacing:.10em; color:#7890ab; }
+.app-status-dot { width:6px; height:6px; border-radius:50%; background:var(--tech-success); box-shadow:0 0 10px rgba(82,224,164,.75); animation:pulseDot 2.2s ease-in-out infinite; }
+@keyframes pulseDot { 0%,100%{opacity:.55;transform:scale(.9)} 50%{opacity:1;transform:scale(1.12)} }
+.ripple-dot { position:absolute; border-radius:50%; background:rgba(255,255,255,.18); transform:translate(-50%,-50%) scale(0); pointer-events:none; animation:ripple .52s ease-out forwards; }
+@keyframes ripple { to{ transform:translate(-50%,-50%) scale(1); opacity:0; } }
+@media(max-width:768px){ .container{padding:15px}.header{padding:23px 20px}.header::after{font-size:55px}.app-status{display:none}.section-content{padding:14px}.button-grid{grid-template-columns:1fr 1fr}.btn,.file-label{min-height:43px;font-size:12px}.note-item{align-items:stretch}.note-actions{align-self:flex-end}.footer{margin-top:16px}.search-container{padding:6px}.search-mode{width:100%} }
+@media(prefers-reduced-motion:reduce){ *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important} }
+</style>
+
 </head>
 <body>
     <div class="container">
@@ -689,7 +858,7 @@
 
         <div class="section" id="config">
             <div class="section-header" onclick="toggleSection('config')">
-                <h2 class="section-title">⚙️ Configuration</h2>
+                <h2 class="section-title">Configuration</h2>
                 <span class="section-toggle">▼</span>
             </div>
             <div class="section-content">
@@ -705,7 +874,7 @@
 
         <div class="section active" id="notes">
             <div class="section-header" onclick="toggleSection('notes')">
-                <h2 class="section-title">📝 Gestion des notes</h2>
+                <h2 class="section-title">Gestion des notes</h2>
                 <span class="section-toggle">▼</span>
             </div>
             <div class="section-content">
@@ -723,7 +892,7 @@
 
         <div class="section" id="sort">
             <div class="section-header" onclick="toggleSection('sort')">
-                <h2 class="section-title">🔄 Tri et organisation</h2>
+                <h2 class="section-title">Tri et organisation</h2>
                 <span class="section-toggle">▼</span>
             </div>
             <div class="section-content">
@@ -738,7 +907,7 @@
 
         <div class="section" id="import">
             <div class="section-header" onclick="toggleSection('import')">
-                <h2 class="section-title">📤 Import/Export</h2>
+                <h2 class="section-title">Import / Export</h2>
                 <span class="section-toggle">▼</span>
             </div>
             <div class="section-content">
@@ -753,7 +922,7 @@
 
         <div class="section active" id="content">
             <div class="section-header" onclick="toggleSection('content')">
-                <h2 class="section-title">📋 Contenu de la liste</h2>
+                <h2 class="section-title">Contenu de la liste</h2>
                 <span class="section-toggle">▼</span>
             </div>
             <div class="section-content">
@@ -791,7 +960,7 @@
 
     <div class="footer">
         <p class="copyright">
-            © 2025 List Constructor - Créé avec ❤️ par Philippe Joye (Orion4D) <a href="https://github.com/orion4d/">Github</a></p>
+            © 2026 List Constructor - Créé avec ❤️ par Philippe Joye (Orion4D) <a href="https://github.com/orion4d/">Github</a></p>
         </p>
     </div>
 
@@ -884,6 +1053,7 @@
         ];
         let currentNoteIndex = -1;
         let filteredNotes = [];
+        let editingLabelIndex = -1;
 
         // Initialisation
         document.addEventListener('DOMContentLoaded', function() {
@@ -1124,23 +1294,159 @@
         }
 
         function closeLabelManager() {
+            editingLabelIndex = -1;
             document.getElementById('labelModal').style.display = 'none';
         }
 
         function displayLabels() {
             const labelsList = document.getElementById('labelsList');
             labelsList.innerHTML = '';
-            
+
             labels.forEach((label, index) => {
                 const labelItem = document.createElement('div');
-                labelItem.className = 'label-item';
-                labelItem.innerHTML = `
-                    <div class="label-color" style="background-color: ${label.color}"></div>
-                    <span class="label-name">${label.name}</span>
-                    <button class="delete-label" onclick="deleteLabel(${index})">Supprimer</button>
-                `;
+                const isEditing = editingLabelIndex === index;
+                labelItem.className = `label-item${isEditing ? ' editing' : ''}`;
+
+                if (isEditing) {
+                    labelItem.innerHTML = `
+                        <input type="color"
+                            id="editLabelColor-${index}"
+                            class="label-color-editor"
+                            value="${normalizeLabelColor(label.color)}"
+                            aria-label="Couleur du label">
+                        <input type="text"
+                            id="editLabelName-${index}"
+                            class="label-name-editor"
+                            value="${escapeHtmlAttribute(label.name)}"
+                            aria-label="Nom du label"
+                            onkeydown="handleLabelEditKey(event, ${index})">
+                        <div class="label-edit-actions">
+                            <button class="label-edit-action label-edit-confirm" type="button"
+                                onclick="saveLabelEdit(${index})"
+                                title="Valider les modifications"
+                                aria-label="Valider les modifications">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg>
+                            </button>
+                            <button class="label-edit-action label-edit-cancel" type="button"
+                                onclick="cancelLabelEdit()"
+                                title="Annuler les modifications"
+                                aria-label="Annuler les modifications">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"></path></svg>
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    labelItem.innerHTML = `
+                        <div class="label-color" style="background-color: ${label.color}"></div>
+                        <span class="label-name">${escapeHtml(label.name)}</span>
+                        <button class="note-btn edit-btn" type="button" onclick="editLabel(${index})">Éditer</button>
+                        <button class="delete-label" type="button" onclick="deleteLabel(${index})">Supprimer</button>
+                    `;
+                }
+
                 labelsList.appendChild(labelItem);
             });
+        }
+
+        function editLabel(index) {
+            if (!labels[index]) return;
+            editingLabelIndex = index;
+            displayLabels();
+
+            requestAnimationFrame(() => {
+                const input = document.getElementById(`editLabelName-${index}`);
+                if (input) {
+                    input.focus();
+                    input.select();
+                }
+            });
+        }
+
+        function cancelLabelEdit() {
+            editingLabelIndex = -1;
+            displayLabels();
+        }
+
+        function saveLabelEdit(index) {
+            if (!labels[index]) return false;
+
+            const nameInput = document.getElementById(`editLabelName-${index}`);
+            const colorInput = document.getElementById(`editLabelColor-${index}`);
+            const newName = nameInput ? nameInput.value.trim() : '';
+            const newColor = colorInput ? colorInput.value : labels[index].color;
+
+            if (!newName) {
+                alert('Le nom du label ne peut pas être vide.');
+                if (nameInput) nameInput.focus();
+                return false;
+            }
+
+            const duplicate = labels.some((label, labelIndex) =>
+                labelIndex !== index &&
+                label.name.toLocaleLowerCase() === newName.toLocaleLowerCase()
+            );
+
+            if (duplicate) {
+                alert('Un label portant ce nom existe déjà.');
+                if (nameInput) {
+                    nameInput.focus();
+                    nameInput.select();
+                }
+                return false;
+            }
+
+            const oldName = labels[index].name;
+
+            labels[index] = {
+                ...labels[index],
+                name: newName,
+                color: newColor
+            };
+
+            // Les notes stockent le nom du label : préserver l'association lors d'un renommage.
+            if (oldName !== newName) {
+                notes.forEach(note => {
+                    if (note.labelName === oldName) {
+                        note.labelName = newName;
+                    }
+                });
+            }
+
+            editingLabelIndex = -1;
+            displayLabels();
+            updateLabelSelect();
+            filterNotes();
+            updateStats();
+            return true;
+        }
+
+        function handleLabelEditKey(event, index) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                saveLabelEdit(index);
+            } else if (event.key === 'Escape') {
+                event.preventDefault();
+                cancelLabelEdit();
+            }
+        }
+
+        function normalizeLabelColor(color) {
+            const value = String(color || '').trim();
+            if (/^#[0-9a-f]{6}$/i.test(value)) return value;
+
+            if (/^#[0-9a-f]{3}$/i.test(value)) {
+                return '#' + value.slice(1).split('').map(char => char + char).join('');
+            }
+
+            return '#6B73D9';
+        }
+
+        function escapeHtmlAttribute(text) {
+            return String(text ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
         }
 
         function addLabel() {
@@ -1158,14 +1464,20 @@
 
         function deleteLabel(index) {
             const labelName = labels[index].name;
-            
+
+            if (editingLabelIndex === index) {
+                editingLabelIndex = -1;
+            } else if (editingLabelIndex > index) {
+                editingLabelIndex--;
+            }
+
             // Supprimer le label des notes qui l'utilisent
             notes.forEach(note => {
                 if (note.labelName === labelName) {
                     note.labelName = '';
                 }
             });
-            
+
             labels.splice(index, 1);
             displayLabels();
             updateStats();
@@ -1174,6 +1486,10 @@
         }
 
         function saveLabels() {
+            if (editingLabelIndex >= 0 && !saveLabelEdit(editingLabelIndex)) {
+                return;
+            }
+
             saveToStorage();
             closeLabelManager();
             updateLabelSelect();
@@ -1496,5 +1812,43 @@
             }
         });
     </script>
+
+<script id="orion-modern-tech-ui">
+(() => {
+  const svg = (paths) => `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+  const I = {
+    settings: svg('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V21h-4v-.08A1.7 1.7 0 0 0 9 19.36a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.63 15 1.7 1.7 0 0 0 3.08 14H3v-4h.08A1.7 1.7 0 0 0 4.64 9 1.7 1.7 0 0 0 4.3 7.1l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.63 1.7 1.7 0 0 0 10 3.08V3h4v.08A1.7 1.7 0 0 0 15 4.64a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.37 9 1.7 1.7 0 0 0 20.92 10H21v4h-.08A1.7 1.7 0 0 0 19.4 15Z"/>'),
+    note: svg('<path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/>'),
+    sort: svg('<path d="M8 7h12M8 12h8M8 17h4"/><path d="m4 5-2 2 2 2M2 7h4"/>'),
+    io: svg('<path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 13v7h14v-7"/>'),
+    list: svg('<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/>'),
+    plus: svg('<path d="M12 5v14M5 12h14"/>'), paste: svg('<path d="M9 5h6l1 2h3v14H5V7h3l1-2Z"/><path d="M9 12h6M9 16h4"/>'),
+    dedupe: svg('<rect x="4" y="4" width="10" height="10" rx="2"/><rect x="10" y="10" width="10" height="10" rx="2"/>'),
+    trash: svg('<path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/>'),
+    prefix: svg('<path d="M5 6v12M9 8h10M9 12h7M9 16h10"/>'), suffix: svg('<path d="M19 6v12M5 8h10M8 12h7M5 16h10"/>'),
+    replace: svg('<path d="M4 7h12M13 4l3 3-3 3M20 17H8M11 14l-3 3 3 3"/>'),
+    label: svg('<path d="M4 5h9l7 7-8 8-8-8V5Z"/><circle cx="9" cy="10" r="1"/>'),
+    download: svg('<path d="M12 4v11M8 11l4 4 4-4"/><path d="M5 19h14"/>'), upload: svg('<path d="M12 20V9M8 13l4-4 4 4"/><path d="M5 5h14"/>'),
+    edit: svg('<path d="m4 20 4-1 10-10-3-3L5 16l-1 4Z"/><path d="m13 8 3 3"/>'),
+    reset: svg('<path d="M4 4v6h6"/><path d="M6.5 15a7 7 0 1 0 .2-8.2L4 10"/>'),
+    save: svg('<path d="M5 4h12l2 2v14H5V4Z"/><path d="M8 4v6h8V4M8 20v-6h8v6"/>'), close: svg('<path d="m7 7 10 10M17 7 7 17"/>')
+  };
+  const sectionIcons={config:'settings',notes:'note',sort:'sort',import:'io',content:'list'};
+  document.querySelectorAll('.section').forEach(sec=>{ const title=sec.querySelector('.section-title'); if(!title||title.querySelector('.section-icon'))return; const box=document.createElement('span'); box.className='section-icon'; box.innerHTML=I[sectionIcons[sec.id]||'list']; title.prepend(box); });
+  const rules=[
+    [/Gérer labels/i,'label'],[/Exporter config/i,'download'],[/Importer config/i,'upload'],[/Reset/i,'reset'],[/Nouvelle note/i,'plus'],[/Coller texte/i,'paste'],[/doublon/i,'dedupe'],[/notes vides/i,'trash'],[/préfixe/i,'prefix'],[/suffixe/i,'suffix'],[/Remplacer texte/i,'replace'],[/Exporter la liste/i,'download'],[/Exporter par label/i,'download'],[/Importer liste/i,'upload'],[/Ajouter un label/i,'plus'],[/Enregistrer/i,'save'],[/Fermer|Annuler/i,'close'],[/Changer/i,'label']
+  ];
+  function decorate(el){ if(!el || el.dataset.iconized==='1')return; const text=(el.textContent||'').trim(); let key=null; if(el.classList.contains('edit-btn')) key='edit'; else if(el.classList.contains('delete-btn')||el.classList.contains('delete-label')) key='trash'; else { const m=rules.find(([re])=>re.test(text)); if(m) key=m[1]; }
+    if(!key)return; el.dataset.iconized='1'; const txt=document.createElement('span'); txt.textContent=text; el.textContent=''; el.insertAdjacentHTML('beforeend',I[key]); if(!el.classList.contains('note-btn')&&!el.classList.contains('delete-label')) el.appendChild(txt); else el.title=text; }
+  function decorateAll(root=document){ root.querySelectorAll('.btn,.file-label,.note-btn,.delete-label').forEach(decorate); }
+  decorateAll();
+  const obs=new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1){ if(n.matches?.('.btn,.file-label,.note-btn,.delete-label'))decorate(n); decorateAll(n); }})));
+  obs.observe(document.body,{childList:true,subtree:true});
+  const header=document.querySelector('.header'); if(header&&!header.querySelector('.app-status')) header.insertAdjacentHTML('beforeend','<div class="app-status"><span class="app-status-dot"></span>Local workspace</div>');
+  document.addEventListener('pointermove',e=>{document.documentElement.style.setProperty('--glow-x',`${(e.clientX/innerWidth)*100}%`);document.documentElement.style.setProperty('--glow-y',`${(e.clientY/innerHeight)*100}%`);},{passive:true});
+  document.addEventListener('pointerdown',e=>{const b=e.target.closest('.btn,.file-label,.sort-btn,.note-btn,.delete-label,.label-edit-action'); if(!b)return; const r=b.getBoundingClientRect(),d=document.createElement('span'); d.className='ripple-dot'; d.style.left=`${e.clientX-r.left}px`; d.style.top=`${e.clientY-r.top}px`; d.style.width=d.style.height=`${Math.max(r.width,r.height)*1.7}px`; b.appendChild(d); setTimeout(()=>d.remove(),560);});
+})();
+</script>
+
 </body>
 </html>
